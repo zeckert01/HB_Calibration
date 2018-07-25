@@ -148,16 +148,26 @@ def saveTGraph(rootFile,shuntMult,i_range,qieNumber,i_capID,maxResi,verbose=Fals
     zeroLine.SetLineColor(kBlack)
     zeroLine.SetLineWidth(1)
     zeroLine.Draw("same")
+    upResidualLine = TLine(-9e9,maxResiduals[i_range],9e9,maxResiduals[i_range])
+    upResidualLine.SetLineColor(kRed)
+    upResidualLine.SetLineWidth(1)
+    upResidualLine.Draw("same")
+    downResidualLine = TLine(-9e9,-1*maxResiduals[i_range],9e9,-1*maxResiduals[i_range])
+    downResidualLine.SetLineColor(kRed)
+    downResidualLine.SetLineWidth(1)
+    downResidualLine.Draw("same")
 
     # xmin = xmin-10
     # xmax = xmax+10
     #if minCharge < 10: minCharge = -10
 
+    resiPlotBoundaries = [min(-1*maxResi,-1*maxResiduals[i_range]-0.1*maxResiduals[i_range]),max(maxResi,maxResiduals[i_range]+0.1*maxResiduals[i_range])]
+
     graph.GetXaxis().SetRangeUser(xmin*0.9, xmax*1.1)
     graph.GetYaxis().SetRangeUser(ymin*.9,ymax*1.1)
 
     residualGraphX.GetXaxis().SetRangeUser(xmin*0.9, xmax*1.1)
-    residualGraphX.GetYaxis().SetRangeUser(-0.1,0.1)
+    residualGraphX.GetYaxis().SetRangeUser(resiPlotBoundaries[0],resiPlotBoundaries[1])
     residualGraphX.SetMarkerStyle(7)
     residualGraphX.GetYaxis().SetNdivisions(3,5,0)
 
